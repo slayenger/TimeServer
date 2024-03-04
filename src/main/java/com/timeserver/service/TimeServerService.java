@@ -1,9 +1,6 @@
-package com.timeserver;
+package com.timeserver.service;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -11,13 +8,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
-@RequestMapping("/api/time")
-public class TimeServerController {
+@Service
+public class TimeServerService {
 
 
-    @GetMapping()
-    public ResponseEntity<?> getCurrentTime()
+    public Map<String, String> getCurrentTime()
     {
         Map<String, String> response = new HashMap<>();
         LocalDateTime now = LocalDateTime.now(ZoneId.systemDefault());
@@ -26,6 +21,8 @@ public class TimeServerController {
         response.put("currentTime", formattedTime);
         response.put("timezone", ZoneId.systemDefault().toString());
 
-        return ResponseEntity.ok(response);
+        return response;
     }
+
+
 }
